@@ -1,0 +1,148 @@
+{
+  "total_configurations": 8,
+  "num_runs_per_config": 3,
+  "baseline_config": {
+    "learning_rate": 0.001,
+    "gamma": 0.95,
+    "buffer_size": 10000,
+    "batch_size": 32,
+    "target_update_freq": 100
+  },
+  "best_configuration": {
+    "learning_rate": 0.001,
+    "gamma": 0.9,
+    "buffer_size": 10000,
+    "batch_size": 32,
+    "target_update_freq": 100
+  },
+  "best_config_name": "Config_3_LowGamma",
+  "best_results": {
+    "avg_reward": 418.3533333333333,
+    "std_reward": 75.23398227456053,
+    "avg_deliveries": 3.3733333333333335,
+    "std_deliveries": 0.3937286149395573,
+    "config_number": 3
+  },
+  "all_configurations": [
+    {
+      "config_num": 1,
+      "config_name": "Config_1_Baseline",
+      "configuration": {
+        "learning_rate": 0.001,
+        "gamma": 0.95,
+        "buffer_size": 10000,
+        "batch_size": 32,
+        "target_update_freq": 100
+      },
+      "avg_reward": 334.92,
+      "std_reward": 44.07677846667107,
+      "avg_deliveries": 3.0,
+      "std_deliveries": 0.20396078054371136
+    },
+    {
+      "config_num": 2,
+      "config_name": "Config_2_HighLR",
+      "configuration": {
+        "learning_rate": 0.01,
+        "gamma": 0.95,
+        "buffer_size": 10000,
+        "batch_size": 32,
+        "target_update_freq": 100
+      },
+      "avg_reward": -15.880000000000003,
+      "std_reward": 77.33631488505256,
+      "avg_deliveries": 0.7066666666666667,
+      "std_deliveries": 0.4385835787572941
+    },
+    {
+      "config_num": 3,
+      "config_name": "Config_3_LowGamma",
+      "configuration": {
+        "learning_rate": 0.001,
+        "gamma": 0.9,
+        "buffer_size": 10000,
+        "batch_size": 32,
+        "target_update_freq": 100
+      },
+      "avg_reward": 418.3533333333333,
+      "std_reward": 75.23398227456053,
+      "avg_deliveries": 3.3733333333333335,
+      "std_deliveries": 0.3937286149395573
+    },
+    {
+      "config_num": 4,
+      "config_name": "Config_4_LargeBuffer",
+      "configuration": {
+        "learning_rate": 0.001,
+        "gamma": 0.95,
+        "buffer_size": 20000,
+        "batch_size": 32,
+        "target_update_freq": 100
+      },
+      "avg_reward": 293.71999999999997,
+      "std_reward": 33.17347132875906,
+      "avg_deliveries": 2.8266666666666667,
+      "std_deliveries": 0.164384373412506
+    },
+    {
+      "config_num": 5,
+      "config_name": "Config_5_LargeBatch",
+      "configuration": {
+        "learning_rate": 0.001,
+        "gamma": 0.95,
+        "buffer_size": 10000,
+        "batch_size": 64,
+        "target_update_freq": 100
+      },
+      "avg_reward": 269.29333333333335,
+      "std_reward": 98.02747143304042,
+      "avg_deliveries": 2.6,
+      "std_deliveries": 0.5435684562837202
+    },
+    {
+      "config_num": 6,
+      "config_name": "Config_6_FreqUpdate",
+      "configuration": {
+        "learning_rate": 0.001,
+        "gamma": 0.95,
+        "buffer_size": 10000,
+        "batch_size": 32,
+        "target_update_freq": 50
+      },
+      "avg_reward": 298.4533333333333,
+      "std_reward": 99.78100064084788,
+      "avg_deliveries": 2.7466666666666666,
+      "std_deliveries": 0.47814456205442946
+    },
+    {
+      "config_num": 7,
+      "config_name": "Config_7_Combo_Fast",
+      "configuration": {
+        "learning_rate": 0.01,
+        "gamma": 0.9,
+        "buffer_size": 20000,
+        "batch_size": 32,
+        "target_update_freq": 100
+      },
+      "avg_reward": -73.74000000000001,
+      "std_reward": 27.99891902675292,
+      "avg_deliveries": 0.3333333333333333,
+      "std_deliveries": 0.1968643074697787
+    },
+    {
+      "config_num": 8,
+      "config_name": "Config_8_Combo_Stable",
+      "configuration": {
+        "learning_rate": 0.001,
+        "gamma": 0.99,
+        "buffer_size": 20000,
+        "batch_size": 64,
+        "target_update_freq": 50
+      },
+      "avg_reward": 136.5,
+      "std_reward": 67.94472066810391,
+      "avg_deliveries": 1.5866666666666667,
+      "std_deliveries": 0.45879068090894015
+    }
+  ]
+}

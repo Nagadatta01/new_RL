@@ -1,0 +1,20 @@
+{
+    "DQN": {
+        "mean_reward": 0,
+        "std_reward": 0,
+        "mean_deliveries": 0,
+        "std_deliveries": 0.5
+    },
+    "Double_DQN": {
+        "mean_reward": 102.545,
+        "std_reward": 225.81819488621076,
+        "mean_deliveries": 1.43,
+        "std_deliveries": 1.4646159906268945
+    },
+    "A2C": {
+        "mean_reward": 97.13,
+        "std_reward": 125.04325158386864,
+        "mean_deliveries": 0.91,
+        "std_deliveries": 0.8804733575374858
+    }
+}

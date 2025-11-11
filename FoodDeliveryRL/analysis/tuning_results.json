@@ -1,0 +1,82 @@
+{
+  "baseline": {
+    "config": {
+      "learning_rate": 0.001,
+      "gamma": 0.95,
+      "epsilon_start": 1.0,
+      "epsilon_end": 0.1,
+      "epsilon_decay": 0.995,
+      "buffer_size": 10000,
+      "batch_size": 32,
+      "target_update_freq": 100
+    },
+    "avg_final_reward": 494.075,
+    "std_final_reward": 92.25314583615385,
+    "avg_final_deliveries": 3.983333333333333,
+    "std_final_deliveries": 0.41298372311212894
+  },
+  "high_lr": {
+    "config": {
+      "learning_rate": 0.01,
+      "gamma": 0.95,
+      "epsilon_start": 1.0,
+      "epsilon_end": 0.1,
+      "epsilon_decay": 0.995,
+      "buffer_size": 10000,
+      "batch_size": 32,
+      "target_update_freq": 100
+    },
+    "avg_final_reward": -278.3416666666667,
+    "std_final_reward": 178.47960356547438,
+    "avg_final_deliveries": 0.0,
+    "std_final_deliveries": 0.0
+  },
+  "low_lr": {
+    "config": {
+      "learning_rate": 0.0001,
+      "gamma": 0.95,
+      "epsilon_start": 1.0,
+      "epsilon_end": 0.1,
+      "epsilon_decay": 0.995,
+      "buffer_size": 10000,
+      "batch_size": 32,
+      "target_update_freq": 100
+    },
+    "avg_final_reward": 286.1416666666667,
+    "std_final_reward": 59.616281100234886,
+    "avg_final_deliveries": 2.15,
+    "std_final_deliveries": 0.3741657386773941
+  },
+  "high_gamma": {
+    "config": {
+      "learning_rate": 0.001,
+      "gamma": 0.99,
+      "epsilon_start": 1.0,
+      "epsilon_end": 0.1,
+      "epsilon_decay": 0.995,
+      "buffer_size": 10000,
+      "batch_size": 32,
+      "target_update_freq": 100
+    },
+    "avg_final_reward": -198.61666666666667,
+    "std_final_reward": 111.00402645349801,
+    "avg_final_deliveries": 0.03333333333333333,
+    "std_final_deliveries": 0.023570226039551584
+  },
+  "low_gamma": {
+    "config": {
+      "learning_rate": 0.001,
+      "gamma": 0.9,
+      "epsilon_start": 1.0,
+      "epsilon_end": 0.1,
+      "epsilon_decay": 0.995,
+      "buffer_size": 10000,
+      "batch_size": 32,
+      "target_update_freq": 100
+    },
+    "avg_final_reward": 555.9250000000001,
+    "std_final_reward": 63.22247754293303,
+    "avg_final_deliveries": 4.183333333333334,
+    "std_final_deliveries": 0.25927248643506734
+  }
+}

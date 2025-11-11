@@ -1,0 +1,72 @@
+{
+  "Learning Rate (\u03b1)": {
+    "value": 0.0005,
+    "rationale": "Stability with large state space",
+    "range": [
+      0.0001,
+      0.0005,
+      0.001
+    ]
+  },
+  "Discount Factor (\u03b3)": {
+    "value": 0.95,
+    "rationale": "More immediate rewards for navigation",
+    "range": [
+      0.9,
+      0.95,
+      0.99
+    ]
+  },
+  "Epsilon Start": {
+    "value": 1.0,
+    "rationale": "100% exploration initially",
+    "range": [
+      1.0
+    ]
+  },
+  "Epsilon End": {
+    "value": 0.2,
+    "rationale": "20% exploration always maintained",
+    "range": [
+      0.1,
+      0.2,
+      0.3
+    ]
+  },
+  "Epsilon Decay": {
+    "value": 0.9995,
+    "rationale": "Very slow decay (~500 episodes to reach end)",
+    "range": [
+      0.999,
+      0.9995,
+      0.99999
+    ]
+  },
+  "Batch Size": {
+    "value": 16,
+    "rationale": "Better gradient quality than 32",
+    "range": [
+      8,
+      16,
+      32
+    ]
+  },
+  "Buffer Size": {
+    "value": 50000,
+    "rationale": "Sufficient without memory overhead",
+    "range": [
+      25000,
+      50000,
+      100000
+    ]
+  },
+  "Target Update": {
+    "value": 500,
+    "rationale": "Update target network frequently for stability",
+    "range": [
+      250,
+      500,
+      1000
+    ]
+  }
+}

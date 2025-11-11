@@ -1,0 +1,73 @@
+{
+  "Learning Rate (\u03b1)": {
+    "value": 0.001,
+    "range": [
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "rationale": "Controls DQN weight updates. 0.001 is standard for neural networks.\n\u2022 Too high (0.01): Unstable, overshoots optimal weights\n\u2022 Too low (0.0001): Slow convergence, may get stuck\n\u2022 Sweet spot (0.001): Balances speed and stability"
+  },
+  "Discount Factor (\u03b3)": {
+    "value": 0.95,
+    "range": [
+      0.9,
+      0.95,
+      0.99
+    ],
+    "rationale": "Determines importance of future rewards. \u03b3 = 0.95 chosen.\n\u2022 \u03b3 = 0.9: Myopic agent (short-term focus)\n\u2022 \u03b3 = 0.95: Balance (current choice) - good for delivery tasks\n\u2022 \u03b3 = 0.99: Far-sighted agent (long-term focus)"
+  },
+  "Epsilon Start (\u03b5_start)": {
+    "value": 1.0,
+    "range": [
+      0.5,
+      1.0
+    ],
+    "rationale": "Initial exploration rate. \u03b5_start = 1.0 chosen.\n\u2022 1.0 = Maximum exploration: Agent explores all actions randomly\n\u2022 Justified: Agent needs to discover environment structure"
+  },
+  "Epsilon End (\u03b5_end)": {
+    "value": 0.1,
+    "range": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "rationale": "Minimum exploration rate after decay. \u03b5_end = 0.1 chosen.\n\u2022 0.01: Very low exploration (mostly exploitation)\n\u2022 0.1: More exploration (current choice) - prevents premature convergence\n\u2022 Justification: Food delivery task benefits from continued exploration"
+  },
+  "Epsilon Decay": {
+    "value": 0.995,
+    "range": [
+      0.99,
+      0.995,
+      0.999
+    ],
+    "rationale": "Controls exploration \u2192 exploitation transition. 0.995 chosen.\n\u2022 0.99: Fast decay (reaches \u03b5_end quickly)\n\u2022 0.995: Moderate decay (current choice) - balanced\n\u2022 0.999: Slow decay (long exploration phase)"
+  },
+  "Replay Buffer Size": {
+    "value": 10000,
+    "range": [
+      1000,
+      5000,
+      10000
+    ],
+    "rationale": "Stores past experiences for learning. 10000 chosen.\n\u2022 1000: Small buffer, loses old experiences quickly\n\u2022 10000: Large buffer (current choice) - diverse samples, stable learning"
+  },
+  "Batch Size": {
+    "value": 32,
+    "range": [
+      16,
+      32,
+      64
+    ],
+    "rationale": "Number of samples per training step. 32 chosen.\n\u2022 16: Small batch - noisier gradient updates\n\u2022 32: Medium batch (current choice) - balanced\n\u2022 64: Large batch - smoother gradients, slower training"
+  },
+  "Target Network Update": {
+    "value": 100,
+    "range": [
+      50,
+      100,
+      500
+    ],
+    "rationale": "Update target network every N training steps. 100 chosen.\n\u2022 50: Frequent updates (may cause instability)\n\u2022 100: Moderate (current choice) - balances stability & convergence\n\u2022 500: Infrequent (slow adaptation)"
+  }
+}

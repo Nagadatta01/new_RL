@@ -1,0 +1,14 @@
+{
+  "normal": {
+    "avg_reward": -13.698464999999999,
+    "success_rate": 0.0
+  },
+  "noisy": {
+    "avg_reward": -21.15263333333331,
+    "success_rate": 0.0
+  },
+  "challenging": {
+    "avg_reward": -54.539941666666515,
+    "success_rate": 0.0
+  }
+}

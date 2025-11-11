@@ -1,0 +1,46 @@
+{
+  "configuration": {
+    "learning_rate": 0.001,
+    "gamma": 0.95,
+    "buffer_size": 10000,
+    "batch_size": 32,
+    "target_update_freq": 100
+  },
+  "num_runs": 3,
+  "num_episodes": 100,
+  "random_seed": 42,
+  "per_run_results": [
+    {
+      "run": 1,
+      "seed": 42,
+      "final_reward": -22.08,
+      "std_reward": 120.9110152136686,
+      "final_deliveries": 0.2,
+      "max_deliveries": 2
+    },
+    {
+      "run": 2,
+      "seed": 43,
+      "final_reward": -5.26,
+      "std_reward": 60.81120291525239,
+      "final_deliveries": 0.08,
+      "max_deliveries": 2
+    },
+    {
+      "run": 3,
+      "seed": 44,
+      "final_reward": 194.46,
+      "std_reward": 607.1423872535997,
+      "final_deliveries": 2.96,
+      "max_deliveries": 5
+    }
+  ],
+  "aggregate_results": {
+    "mean_reward": 55.70666666666667,
+    "std_reward": 98.35342303256263,
+    "mean_deliveries": 1.08,
+    "std_deliveries": 1.3302631318652711,
+    "min_reward": -22.08,
+    "max_reward": 194.46
+  }
+}

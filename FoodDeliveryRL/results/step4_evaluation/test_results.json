@@ -1,0 +1,32 @@
+{
+  "best_configuration": {
+    "learning_rate": 0.001,
+    "gamma": 0.9,
+    "buffer_size": 10000,
+    "batch_size": 32,
+    "target_update_freq": 100
+  },
+  "training_episodes": 300,
+  "training_final_reward": 135.7,
+  "unseen": {
+    "avg_reward": -121.0,
+    "std_reward": 222.22286111019272,
+    "avg_deliveries": 0.8,
+    "std_deliveries": 0.7483314773547882,
+    "success_rate": 0.0
+  },
+  "altered": {
+    "avg_reward": -71.3,
+    "std_reward": 382.9458969619599,
+    "avg_deliveries": 1.3,
+    "std_deliveries": 1.791647286716892,
+    "success_rate": 0.1
+  },
+  "noisy": {
+    "avg_reward": -141.9,
+    "std_reward": 129.71908109449436,
+    "avg_deliveries": 0.0,
+    "std_deliveries": 0.0,
+    "success_rate": 0.0
+  }
+}

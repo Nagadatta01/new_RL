@@ -1,0 +1,23 @@
+{
+  "configuration": {
+    "learning_rate": 0.001,
+    "gamma": 0.95,
+    "epsilon_start": 1.0,
+    "epsilon_end": 0.1,
+    "epsilon_decay": 0.995,
+    "buffer_size": 10000,
+    "batch_size": 32,
+    "target_update_freq": 100
+  },
+  "num_runs": 3,
+  "num_episodes": 100,
+  "random_seed": 42,
+  "aggregate_results": {
+    "mean_reward": 277.62,
+    "std_reward": 91.23226183757585,
+    "min_reward": 167.0,
+    "max_reward": 390.44,
+    "mean_deliveries": 2.733333333333333,
+    "std_deliveries": 0.5808805576211191
+  }
+}

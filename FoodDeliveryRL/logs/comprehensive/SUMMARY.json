@@ -1,0 +1,11 @@
+{
+  "training_episodes": 200,
+  "best_reward": 55.56000000000001,
+  "normal_success": 0.0,
+  "files": [
+    "best_model.pt",
+    "training_data.json",
+    "evaluation_results.json",
+    "hyperparameters.json"
+  ]
+}

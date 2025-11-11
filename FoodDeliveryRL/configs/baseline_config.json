@@ -1,0 +1,22 @@
+{
+  "environment": {
+    "grid_size": 15,
+    "num_restaurants": 3,
+    "num_customers": 5,
+    "state_dim": 5,
+    "action_dim": 6,
+    "max_steps_per_episode": 500
+  },
+  "baseline_dqn": {
+    "learning_rate": 0.001,
+    "gamma": 0.95,
+    "epsilon_start": 1.0,
+    "epsilon_end": 0.1,
+    "epsilon_decay": 0.995,
+    "buffer_size": 10000,
+    "batch_size": 32,
+    "target_update_freq": 100
+  },
+  "seed": 42,
+  "device": "cpu"
+}
