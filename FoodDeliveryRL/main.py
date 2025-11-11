@@ -377,8 +377,6 @@ def main():
         json.dump(champion, f, indent=4)
     
     print(f"\n✓ Champion info saved to: results/step3_champion/champion_selection.json")
-    
-
 if __name__ == "__main__":
     try:
         main()
