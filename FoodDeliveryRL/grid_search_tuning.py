@@ -1,3 +1,8 @@
+"""
+[STEP 3B] GRID SEARCH - HYPERPARAMETER TUNING (8 BEST CONFIGS)
+Only 8 configurations - 30-40 minutes training
+"""
+
 import torch
 import numpy as np
 from pathlib import Path
@@ -9,9 +14,10 @@ from models.dqn_agent import DQNAgent
 
 SEED = 42
 
-# ===== Visualization Toggle =====
+# ===== VISUALIZATION TOGGLE =====
 VISUALIZE = os.getenv('VISUALIZE', '0') == '1'
 RENDER_EVERY = 30 if VISUALIZE else 0
+# ================================
 
 BASELINE_CONFIG = {
     "learning_rate": 0.001,
@@ -21,6 +27,8 @@ BASELINE_CONFIG = {
     "target_update_freq": 100
 }
 
+# ===== BEST 8 CONFIGURATIONS TO TEST =====
+# Baseline + 7 smart variations
 CONFIGS_TO_TEST = [
     {
         "config_name": "Config_1_Baseline",
@@ -30,10 +38,68 @@ CONFIGS_TO_TEST = [
         "batch_size": 32,
         "target_update_freq": 100
     },
-    # ... [Other configs as you have them, omitted here for brevity]
+    {
+        "config_name": "Config_2_HighLR",
+        "learning_rate": 0.01,          # ↑ Faster learning
+        "gamma": 0.95,
+        "buffer_size": 10000,
+        "batch_size": 32,
+        "target_update_freq": 100
+    },
+    {
+        "config_name": "Config_3_LowGamma",
+        "learning_rate": 0.001,
+        "gamma": 0.90,                  # ↓ More short-term focus
+        "buffer_size": 10000,
+        "batch_size": 32,
+        "target_update_freq": 100
+    },
+    {
+        "config_name": "Config_4_LargeBuffer",
+        "learning_rate": 0.001,
+        "gamma": 0.95,
+        "buffer_size": 20000,           # ↑ More experience diversity
+        "batch_size": 32,
+        "target_update_freq": 100
+    },
+    {
+        "config_name": "Config_5_LargeBatch",
+        "learning_rate": 0.001,
+        "gamma": 0.95,
+        "buffer_size": 10000,
+        "batch_size": 64,               # ↑ Better gradient estimates
+        "target_update_freq": 100
+    },
+    {
+        "config_name": "Config_6_FreqUpdate",
+        "learning_rate": 0.001,
+        "gamma": 0.95,
+        "buffer_size": 10000,
+        "batch_size": 32,
+        "target_update_freq": 50        # ↑ More frequent updates
+    },
+    {
+        "config_name": "Config_7_Combo_Fast",
+        "learning_rate": 0.01,          # Fast learning
+        "gamma": 0.90,                  # Short-term focus
+        "buffer_size": 20000,           # Large buffer
+        "batch_size": 32,
+        "target_update_freq": 100
+    },
+    {
+        "config_name": "Config_8_Combo_Stable",
+        "learning_rate": 0.001,
+        "gamma": 0.99,                  # Long-term focus
+        "buffer_size": 20000,           # Large buffer
+        "batch_size": 64,               # Large batch
+        "target_update_freq": 50        # Frequent updates
+    }
 ]
+# ========================================
+
 
 def train_single_run(config, run_id, num_episodes=100):
+    """Train DQN - single run with logging"""
     torch.manual_seed(SEED + run_id)
     np.random.seed(SEED + run_id)
     
@@ -72,19 +138,19 @@ def train_single_run(config, run_id, num_episodes=100):
             if VISUALIZE and (episode + 1) % RENDER_EVERY == 0:
                 try:
                     env.render()
-                except Exception:
+                except:
                     pass
-                
+            
             if done:
                 break
         
         rewards.append(episode_reward)
-        deliveries.append(env.deliveries if hasattr(env, 'deliveries') else info.get('deliveries', 0))
+        deliveries.append(env.deliveries)
         losses.append(agent.training_losses[-1] if agent.training_losses else 0)
         epsilons.append(agent.epsilon)
         
         if (episode + 1) % 25 == 0:
-            print(f"     Run {run_id+1} | Ep {episode+1:3d} | Reward: {np.mean(rewards[-25:]):7.2f} | Del: {np.mean(deliveries[-25:]):.2f}/5")
+            print(f"        Run {run_id+1} | Ep {episode+1:3d} | Reward: {np.mean(rewards[-25:]):7.2f} | Del: {np.mean(deliveries[-25:]):.2f}/5")
     
     env.close()
     
@@ -100,12 +166,16 @@ def train_single_run(config, run_id, num_episodes=100):
         "max_deliveries": float(max(deliveries))
     }
 
+
 def step3_grid_search():
+    """Step 3B: Grid Search - Test BEST 8 configurations"""
+    
     print("\n" + "="*80)
     print("[STEP 3B] GRID SEARCH - HYPERPARAMETER TUNING (BEST 8 CONFIGS)")
     print(f"Visualization: {'ENABLED ✅' if VISUALIZE else 'DISABLED ⚡ (FAST)'}")
     print("="*80)
     
+    # Load baseline for reference
     baseline_file = Path("results/step3_baseline/baseline_results.json")
     baseline_reward = None
     baseline_deliveries = None
@@ -128,7 +198,7 @@ def step3_grid_search():
     print(f"\n📊 Testing Best 8 Configurations...")
     print(f"✓ Total configurations: {total_configs}")
     print(f"✓ Total runs: {total_configs * num_runs} (3 per config)")
-    print(f"✓ Total episodes: {total_configs * num_runs * 100} (8 configs × 3 runs × 100 eps)")
+    print(f"✓ Total episodes: {total_configs * num_runs * 100} (800 configs × 3 runs × 100 eps)")
     print(f"✓ Estimated time: ~30-40 minutes (without visualization)\n")
     
     for config_idx, config_template in enumerate(CONFIGS_TO_TEST, 1):
@@ -141,9 +211,10 @@ def step3_grid_search():
         
         runs = []
         for run_id in range(num_runs):
-            result = train_single_run(config_template.copy(), run_id, 100)
+            result = train_single_run(config_template, run_id, 100)
             runs.append(result)
         
+        # Aggregate results
         avg_reward = np.mean([r["final_reward"] for r in runs])
         std_reward = np.std([r["final_reward"] for r in runs])
         avg_deliveries = np.mean([r["final_deliveries"] for r in runs])
@@ -197,7 +268,7 @@ def step3_grid_search():
         improvement = ((best_result['avg_reward'] - baseline_reward) / baseline_reward) * 100
         print(f"  • Improvement vs Baseline: {improvement:+.2f}%")
     
-    # Save results JSON
+    # Save results
     json_data = {
         "total_configurations": total_configs,
         "num_runs_per_config": num_runs,
@@ -225,7 +296,6 @@ def step3_grid_search():
         ]
     }
     
-    results_dir = Path("results/step3_grid_search")
     with open(results_dir / "grid_search_results.json", "w") as f:
         json.dump(json_data, f, indent=2)
     
@@ -241,17 +311,17 @@ def step3_grid_search():
             }
         }, f, indent=2)
     
-    # Generate plots
+    # ===== CREATE PLOTS =====
     print(f"\n📊 Generating plots...")
     
     config_names = [c["config_name"] for c in all_configurations]
     rewards = [c["avg_reward"] for c in all_configurations]
     deliveries = [c["avg_deliveries"] for c in all_configurations]
     
-    import matplotlib.pyplot as plt
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
     fig.suptitle('Grid Search Results - Best 8 Configurations', fontsize=16, fontweight='bold')
     
+    # Plot 1: Rewards
     colors = ['green' if r == max(rewards) else 'blue' for r in rewards]
     axes[0, 0].bar(config_names, rewards, color=colors, alpha=0.7, edgecolor='black', linewidth=2)
     if baseline_reward:
@@ -262,6 +332,7 @@ def step3_grid_search():
     axes[0, 0].legend()
     plt.setp(axes[0, 0].xaxis.get_majorticklabels(), rotation=45, ha='right')
     
+    # Plot 2: Deliveries
     colors = ['green' if d == max(deliveries) else 'blue' for d in deliveries]
     axes[0, 1].bar(config_names, deliveries, color=colors, alpha=0.7, edgecolor='black', linewidth=2)
     if baseline_deliveries:
@@ -273,8 +344,10 @@ def step3_grid_search():
     axes[0, 1].legend()
     plt.setp(axes[0, 1].xaxis.get_majorticklabels(), rotation=45, ha='right')
     
+    # Plot 3: Scatter
     scatter = axes[1, 0].scatter(deliveries, rewards, c=range(len(rewards)), cmap='viridis', s=200, edgecolors='black', linewidth=2)
-    axes[1, 0].scatter([best_result['avg_deliveries']], [best_result['avg_reward']], color='red', s=400, marker='*', edgecolors='black', linewidth=2, zorder=5, label='Best')
+    axes[1, 0].scatter([best_result['avg_deliveries']], [best_result['avg_reward']], 
+                      color='red', s=400, marker='*', edgecolors='black', linewidth=2, zorder=5, label='Best')
     axes[1, 0].set_xlabel('Average Deliveries', fontweight='bold')
     axes[1, 0].set_ylabel('Average Reward', fontweight='bold')
     axes[1, 0].set_title('Reward vs Deliveries', fontweight='bold')
@@ -282,6 +355,7 @@ def step3_grid_search():
     axes[1, 0].legend()
     plt.colorbar(scatter, ax=axes[1, 0], label='Config #')
     
+    # Plot 4: Summary
     axes[1, 1].axis('off')
     summary_text = f"""
 GRID SEARCH SUMMARY
@@ -302,20 +376,21 @@ LR={best_config['learning_rate']}
 Buffer={best_config['buffer_size']}
 Batch={best_config['batch_size']}
 Update={best_config['target_update_freq']}
-"""
+    """
+    
     axes[1, 1].text(0.05, 0.5, summary_text, fontsize=9.5, verticalalignment='center',
-                    family='monospace', bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.9))
+                   family='monospace', bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.9))
     
     plt.tight_layout()
     plt.savefig(results_dir / "grid_search_plots.png", dpi=150, bbox_inches='tight')
     
     print(f"\n✓ Plots saved: {results_dir}/grid_search_plots.png")
     print(f"✓ Results saved: {results_dir}/grid_search_results.json")
+    
     print("\n" + "="*80 + "\n")
     
     return all_configurations, best_config, best_result
 
 
-
 if __name__ == "__main__":
-    step3_grid_search()
+    configs, best, best_result = step3_grid_search()
